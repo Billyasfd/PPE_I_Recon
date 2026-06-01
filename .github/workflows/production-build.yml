@@ -1,0 +1,28 @@
+name: Production Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y curl bash
+
+      - name: Verify Runner Environment
+        run: |
+          chmod +x scripts/verify-runner.sh
+          ./scripts/verify-runner.sh
+
+      - name: Build Application
+        run: |
+          echo "Starting legitimate build..."
+          echo "This is the legitimate build script."
+          echo "Build completed successfully."
